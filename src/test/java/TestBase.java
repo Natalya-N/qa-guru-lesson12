@@ -18,7 +18,7 @@ public class TestBase {
         Configuration.browserSize = System.getProperty("browserSize");
         Configuration.browser = System.getProperty("browser");
         Configuration.browserVersion = System.getProperty("browserVersion");
-        Configuration.browserVersion = System.getProperty("remoteHost");
+        Configuration.remote = "https://user1:1234@" + System.getProperty("remoteHost") + "wd/hub";
         Configuration.pageLoadStrategy = "eager";
         SelenideLogger.addListener("allure", new AllureSelenide());
         Configuration.timeout = 10000;

@@ -2,6 +2,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import utils.TestDataGenerator;
+import java.util.List;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
 
 import static io.qameta.allure.Allure.step;
 
@@ -11,8 +15,36 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     TestDataGenerator testData = new TestDataGenerator();
 
-    @Test
     @Tag("smoke")
+    @Test
+    void magentoSTBsearchTest() {
+        open("https://magento.softwaretestingboard.com/");
+        $("#search").sendKeys("pants");
+        $("#search").pressEnter();
+        $(".product-item-link").shouldBe(visible);
+        $(".product-item-link").shouldHave(text("Pant"));
+    }
+
+    @Tag("smoke")
+    @Test
+    void theInternetHerokuTest() {
+        open("https://the-internet.herokuapp.com/login");
+        $("#username").shouldBe(Condition.interactable, Duration.ofSeconds(20));
+        $("#username").setValue("tomsmith");
+        $("#password").setValue("SuperSecretPassword!");
+        $("button.radius").click();
+        $("div.flash").shouldHave(text("You logged into a secure area!"));
+    }
+
+    @Tag("smoke")
+    @Test
+    void successfulDuckDuckGoSearchTest() {
+        open("https://duckduckgo.com/");
+        $("[id=searchbox_input]").setValue("selenide").pressEnter();
+        $("section[data-testid='mainline']").shouldHave(text("Selenide: concise UI tests in Java"));
+    }
+    
+    @Test
     void successfulRegistrationTest() {
         step("Open page and set data", () -> {
             registrationPage.openPage()
@@ -45,7 +77,6 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                     .checkDataInTable("Address", testData.currentAddress)
                     .checkDataInTable("State and City", testData.state + " " + testData.city);
         });
-
     }
 
     @Test

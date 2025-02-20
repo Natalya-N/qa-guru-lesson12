@@ -29,7 +29,6 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     @Test
     void theInternetHerokuTest() {
         open("https://the-internet.herokuapp.com/login");
-        $("#username").shouldBe(Condition.interactable, Duration.ofSeconds(20));
         $("#username").setValue("tomsmith");
         $("#password").setValue("SuperSecretPassword!");
         $("button.radius").click();
